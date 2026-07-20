@@ -27,7 +27,41 @@
 Интерфейс использует **JetBrainsMono Nerd Font**, а Rofi — иконки
 **Papirus-Dark**. В Polybar также предусмотрен fallback на DejaVu Sans.
 
-## Установка
+## Git-установка через ссылки
+
+Рекомендуемый вариант — держать репозиторий в `~/.config/themes`. Тогда
+изменения обычных файлов `~/.config/i3/config`, `~/.config/rofi/neutral.rasi`
+и остальных сразу отображаются в Git:
+
+```sh
+git clone git@github.com:ionnixf/themes.git "$HOME/.config/themes"
+"$HOME/.config/themes/i3-transparent/link-configs.sh"
+cc -O2 -Wall -Wextra -pedantic \
+  -o "$HOME/.config/i3/xkb-layout" \
+  "$HOME/.config/i3/xkb-layout.c" -lX11
+i3 -C -c "$HOME/.config/i3/config"
+i3-msg reload
+```
+
+Перед созданием ссылок скрипт переносит существующие каталоги в
+`~/.config/backups/i3-transparent-<дата>.<суффикс>`. Локальные файлы
+`i3/wallpaper` и `i3/xkb-layout` сохраняются, но остаются вне Git.
+
+Для обновления темы после редактирования активных конфигов:
+
+```sh
+cd "$HOME/.config/themes"
+git status --short
+git diff -- i3-transparent
+git add i3-transparent
+git commit -m "Update i3 transparent theme"
+git push origin main
+```
+
+Перед началом новой серии изменений получите внешние обновления командой
+`git pull --ff-only`.
+
+## Установка копированием
 
 Сначала сохраните резервную копию собственных конфигов. Затем из этой папки:
 
