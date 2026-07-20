@@ -1,0 +1,41 @@
+@import "neutral"
+
+window {
+    width: 900px;
+    padding: 16px;
+}
+
+listview {
+    flow: horizontal;
+    fixed-columns: true;
+    columns: 3;
+    lines: 2;
+    spacing: 8px;
+}
+
+element {
+    orientation: vertical;
+    children: [ element-icon, element-text ];
+    padding: 8px;
+    spacing: 7px;
+    border: 1px;
+    border-color: @transparent;
+    border-radius: 0px;
+}
+
+element selected normal {
+    background-color: @bg-alt;
+    border-color: @border-tone;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 240px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}

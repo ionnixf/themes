@@ -1,0 +1,36 @@
+# Neutral blocks for i3bar. Each block updates on its own schedule.
+separator=false
+separator_block_width=12
+
+[cpu]
+command=~/.config/i3blocks/cpu.sh
+interval=persist
+color=#b0b0b0
+
+[memory]
+command=~/.config/i3blocks/memory.sh
+interval=2
+color=#b0b0b0
+
+[network]
+command=~/.config/i3blocks/network.sh
+interval=2
+color=#c8c8c8
+
+[volume]
+command=~/.config/i3blocks/volume.sh
+interval=5
+signal=1
+color=#b0b0b0
+
+[language]
+command=~/.config/i3blocks/language.sh
+interval=5
+signal=2
+color=#c8c8c8
+
+[time]
+command=LC_TIME=C date '+󰥔 %a %d %b  %H:%M'
+interval=1
+separator_block_width=4
+color=#e8e8e8

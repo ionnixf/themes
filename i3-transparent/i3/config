@@ -1,0 +1,147 @@
+# Minimal neutral i3 session
+
+set $mod Mod4
+set $left Left
+set $down Down
+set $up Up
+set $right Right
+set $term alacritty
+set $menu rofi -show drun
+
+font pango:JetBrainsMono Nerd Font 10
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+# Neutral palette that lets the wallpaper provide the accent color.
+set $bg         #181818
+set $bg_alt     #282828
+set $fg         #e8e8e8
+set $muted      #777777
+set $accent     #d8d8d8
+set $urgent     #b85c5c
+
+# class                 border    background text     indicator child_border
+client.focused          $accent   $accent    $bg      $accent   $accent
+client.focused_inactive $bg_alt   $bg_alt    $fg      $muted    $bg_alt
+client.unfocused        $bg       $bg        $muted   $muted    $bg
+client.urgent           $urgent   $urgent    $bg      $urgent   $urgent
+client.placeholder      $bg       $bg        $muted   $bg       $bg
+client.background       $bg
+
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
+gaps inner 10
+gaps outer 4
+
+# Session services.
+exec --no-startup-id sh -c 'command -v picom >/dev/null && exec picom --config "$HOME/.config/picom/picom.conf"'
+exec --no-startup-id sh -c 'command -v dunst >/dev/null && exec dunst --config "$HOME/.config/dunst/dunstrc"'
+exec --no-startup-id ~/.config/i3/set-wallpaper.sh --restore
+exec_always --no-startup-id setxkbmap -layout us,ru -option '' -option compose:ralt -option ctrl:nocaps
+
+# Application and session controls. Letter bindings use physical X11 keycodes
+# so their positions stay unchanged across the US and RU XKB groups.
+bindsym $mod+Return exec $term
+bindcode $mod+65 exec --no-startup-id ~/.config/i3/toggle-layout.sh
+bindcode $mod+24 kill
+bindcode $mod+40 exec --no-startup-id $menu
+bindcode $mod+Mod1+46 exec --no-startup-id i3lock -c 181818
+bindcode $mod+Shift+27 reload
+bindcode $mod+Shift+26 exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes' 'i3-msg exit'"
+
+# Extra i3 action: graphical wallpaper chooser.
+bindcode $mod+Shift+25 exec --no-startup-id ~/.config/i3/wallpaper-picker.sh
+
+# Media and hardware keys use the same increments as Sway.
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/volume.sh mute
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/volume.sh down
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+
+# Screenshots: full desktop, interactive selection, and focused window.
+bindsym Print exec --no-startup-id ~/.config/i3/screenshot.sh full
+bindsym Shift+Print exec --no-startup-id ~/.config/i3/screenshot.sh selection
+bindsym Ctrl+Print exec --no-startup-id ~/.config/i3/screenshot.sh window
+
+# Focus and movement.
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Workspaces.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindcode $mod+30 workspace prev
+bindcode $mod+31 workspace next
+bindcode $mod+10 workspace number $ws1
+bindcode $mod+11 workspace number $ws2
+bindcode $mod+12 workspace number $ws3
+bindcode $mod+13 workspace number $ws4
+bindcode $mod+14 workspace number $ws5
+bindcode $mod+15 workspace number $ws6
+bindcode $mod+16 workspace number $ws7
+bindcode $mod+17 workspace number $ws8
+bindcode $mod+18 workspace number $ws9
+bindcode $mod+19 workspace number $ws10
+
+bindcode $mod+Ctrl+30 move container to workspace prev
+bindcode $mod+Ctrl+31 move container to workspace next
+bindcode $mod+Shift+10 move container to workspace number $ws1
+bindcode $mod+Shift+11 move container to workspace number $ws2
+bindcode $mod+Shift+12 move container to workspace number $ws3
+bindcode $mod+Shift+13 move container to workspace number $ws4
+bindcode $mod+Shift+14 move container to workspace number $ws5
+bindcode $mod+Shift+15 move container to workspace number $ws6
+bindcode $mod+Shift+16 move container to workspace number $ws7
+bindcode $mod+Shift+17 move container to workspace number $ws8
+bindcode $mod+Shift+18 move container to workspace number $ws9
+bindcode $mod+Shift+19 move container to workspace number $ws10
+
+# Layout and direct resize bindings.
+bindcode $mod+55 floating toggle
+bindcode $mod+41 fullscreen toggle
+bindcode $mod+56 split h
+bindcode $mod+57 split v
+bindcode $mod+38 focus parent
+
+bindcode $mod+20 resize shrink width 10 px
+bindcode $mod+21 resize grow width 10 px
+bindcode $mod+Shift+20 resize shrink height 10 px
+bindcode $mod+Shift+21 resize grow height 10 px
+
+bar {
+    position top
+    status_command i3blocks -c ~/.config/i3blocks/config
+    font pango:JetBrainsMono Nerd Font 10
+    workspace_buttons yes
+    strip_workspace_numbers no
+    tray_output none
+    padding 3px 8px 3px 0
+
+    colors {
+        background #181818d9
+        statusline #e8e8e8
+        focused_workspace  #d8d8d8 #d8d8d8 #181818
+        active_workspace   #3a3a3a #3a3a3a #e8e8e8
+        inactive_workspace #18181800 #18181800 #777777
+        urgent_workspace   #b85c5c #b85c5c #181818
+        binding_mode       #b0b0b0 #b0b0b0 #181818
+    }
+}

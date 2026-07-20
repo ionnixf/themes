@@ -1,0 +1,67 @@
+[general]
+live_config_reload = true
+
+[window]
+decorations = "None"
+dynamic_padding = true
+opacity = 0.82
+
+[window.padding]
+x = 12
+y = 10
+
+[font]
+size = 11.5
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+blink_interval = 500
+
+[selection]
+save_to_clipboard = true
+
+[colors.primary]
+background = "#181818"
+foreground = "#e8e8e8"
+dim_foreground = "#888888"
+bright_foreground = "#ffffff"
+
+[colors.cursor]
+text = "#181818"
+cursor = "#d8d8d8"
+
+[colors.selection]
+text = "CellForeground"
+background = "#4a4a4a"
+
+[colors.normal]
+black   = "#242424"
+red     = "#c47a7a"
+green   = "#8fa98f"
+yellow  = "#b9a77a"
+blue    = "#9099a8"
+magenta = "#a394aa"
+cyan    = "#86a3a3"
+white   = "#d0d0d0"
+
+[colors.bright]
+black   = "#666666"
+red     = "#d88c8c"
+green   = "#a1b9a1"
+yellow  = "#caba8b"
+blue    = "#a3abb8"
+magenta = "#b5a5bb"
+cyan    = "#99b5b5"
+white   = "#ffffff"
