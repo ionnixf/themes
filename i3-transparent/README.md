@@ -12,6 +12,7 @@
 - Rofi и отдельный выбор обоев с превью;
 - Picom;
 - Dunst;
+- коллекция обоев;
 - необязательный Polybar, который не запускается автоматически.
 
 Скомпилированный `i3/xkb-layout` и локальное состояние `i3/wallpaper` намеренно
@@ -35,17 +36,16 @@
 
 ```sh
 git clone git@github.com:ionnixf/themes.git "$HOME/.config/themes"
-"$HOME/.config/themes/i3-transparent/link-configs.sh"
-cc -O2 -Wall -Wextra -pedantic \
-  -o "$HOME/.config/i3/xkb-layout" \
-  "$HOME/.config/i3/xkb-layout.c" -lX11
+"$HOME/.config/themes/i3-transparent/install.sh"
 i3 -C -c "$HOME/.config/i3/config"
 i3-msg reload
 ```
 
-Перед созданием ссылок скрипт переносит существующие каталоги в
-`~/.config/backups/i3-transparent-<дата>.<суффикс>`. Локальные файлы
-`i3/wallpaper` и `i3/xkb-layout` сохраняются, но остаются вне Git.
+Установщик связывает каталоги конфигурации и `~/Pictures/Wallpapers` с
+репозиторием, автоматически собирает `i3/xkb-layout`, а существующие пути
+переносит в `~/.config/backups`. Локальные файлы `i3/wallpaper` и
+`i3/xkb-layout` сохраняются, но остаются вне Git. Для установки только ссылок
+на конфиги без обоев и компиляции можно запустить `link-configs.sh`.
 
 Для обновления темы после редактирования активных конфигов:
 
@@ -80,9 +80,11 @@ Picom и Dunst запускаются конфигом i3 при старте н
 
 ## Обои
 
-Положите PNG, JPG или WebP в `~/Pictures/Wallpapers` и нажмите
-`Super+Shift+W`. Другой каталог можно передать через переменную
-`WALLPAPER_DIR`. Выбранный путь сохраняется локально в
+Коллекция из репозитория устанавливается в `~/Pictures/Wallpapers`. После
+Git-установки этот путь является ссылкой на `i3-transparent/wallpapers`, поэтому
+добавленные туда PNG, JPG и WebP сразу видны в `git status`. Нажмите
+`Super+Shift+W`, чтобы открыть выбор обоев. Другой путь установки можно передать
+через переменную `WALLPAPER_DIR`. Выбранное изображение сохраняется локально в
 `~/.config/i3/wallpaper`.
 
 ## Клавиши
